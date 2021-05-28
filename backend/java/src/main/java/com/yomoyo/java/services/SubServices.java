@@ -27,7 +27,7 @@ public class SubServices {
         {
             return entity;
         }
-        Sub sub = subRepository.findByIdSub(idsub);
+        Sub sub = subRepository.findByIdsub(idsub);
         entity = (sub == null) ? (new ResponseEntity<Object>(HttpStatus.BAD_REQUEST)) : (new ResponseEntity<Object>(HttpStatus.OK));
         if(entity.getStatusCode() != HttpStatus.OK)
         {

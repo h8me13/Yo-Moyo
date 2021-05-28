@@ -30,7 +30,7 @@ public class CategoryServices {
         {
             return entity;
         }
-        Category category = categoryRepository.findByIdcategoty(idcategory);
+        Category category = categoryRepository.findByIdcategory(idcategory);
         entity = (category == null) ? (new ResponseEntity<Object>(HttpStatus.BAD_REQUEST)) : (new ResponseEntity<Object>(HttpStatus.OK));
         if(entity.getStatusCode() != HttpStatus.OK)
         {

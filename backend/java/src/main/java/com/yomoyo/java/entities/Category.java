@@ -1,6 +1,7 @@
 package com.yomoyo.java.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="category")
@@ -14,6 +15,9 @@ public class Category {
 
     @Column(name="description", nullable = false)
     private String description;
+
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "category")
+    private List<Publication> publicationListCat;
 
     public Category() {
     }
@@ -31,6 +35,13 @@ public class Category {
         this.idcategory = idcategory;
         this.ctgname = ctgname;
         this.description = description;
+    }
+
+    public Category(Long idcategory, String ctgname, String description, List<Publication> publicationListCat) {
+        this.idcategory = idcategory;
+        this.ctgname = ctgname;
+        this.description = description;
+        this.publicationListCat = publicationListCat;
     }
 
     public Long getIdcategory() {
@@ -55,6 +66,10 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setPublicationListCat(List<Publication> publicationListCat) {
+        this.publicationListCat = publicationListCat;
     }
 }
 

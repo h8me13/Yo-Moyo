@@ -1,6 +1,7 @@
 package com.yomoyo.java.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -20,6 +21,12 @@ public class User {
 
     @Column(name="password", nullable = false)
     private String password;
+
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
+    private List<Creater> createrList;
+
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
+    private List<Sub> SubList;
 
     public User(Long iduser) {
         this.iduser = iduser;
@@ -49,6 +56,25 @@ public class User {
         this.surname = surname;
         this.login = login;
         this.password = password;
+    }
+    public User(Long iduser, String name, String surname, String login, String password, List<Creater> createrList)
+    {
+        this.iduser = iduser;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.createrList = createrList;
+    }
+
+    public User(Long iduser, String name, String surname, String login, String password, List<Creater> createrList, List<Sub> subList) {
+        this.iduser = iduser;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.createrList = createrList;
+        this.SubList = subList;
     }
 
     public User() {
@@ -93,5 +119,14 @@ public class User {
 
     public Long getIduser() {
         return iduser;
+    }
+
+    public void setCreaterList(List<Creater> createrList)
+    {
+        this.createrList = createrList;
+    }
+
+    public void setSubList(List<Sub> subList) {
+        this.SubList = subList;
     }
 }

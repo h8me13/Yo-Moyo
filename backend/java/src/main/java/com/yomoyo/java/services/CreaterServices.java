@@ -28,7 +28,7 @@ public class CreaterServices {
         {
             return entity;
         }
-        Creater creater = createrRepository.findByIdCreater(idcreater);
+        Creater creater = createrRepository.findByIdcreater(idcreater);
         entity = (creater == null) ? (new ResponseEntity<Object>(HttpStatus.BAD_REQUEST)) : (new ResponseEntity<Object>(HttpStatus.OK));
         if(entity.getStatusCode() != HttpStatus.OK)
         {

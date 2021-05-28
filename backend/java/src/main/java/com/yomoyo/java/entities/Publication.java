@@ -18,6 +18,14 @@ public class Publication {
     @Column(name="image",nullable = false)
     private  String image;
 
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "creater_idcreater")
+    private Creater creater;
+
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "category_idcategory")
+    private Category category;
+
     public Publication() {
     }
 
@@ -41,6 +49,23 @@ public class Publication {
         this.heading = heading;
         this.text = text;
         this.image = image;
+    }
+
+    public Publication(String heading, String text, String image, Creater creater, Category category) {
+        this.heading = heading;
+        this.text = text;
+        this.image = image;
+        this.creater = creater;
+        this.category = category;
+    }
+
+    public Publication(Long idpublication, String heading, String text, String image, Creater creater, Category category) {
+        this.idpublication = idpublication;
+        this.heading = heading;
+        this.text = text;
+        this.image = image;
+        this.creater = creater;
+        this.category = category;
     }
 
     public Long getIdpublication() {
@@ -73,5 +98,21 @@ public class Publication {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Creater getCreater() {
+        return creater;
+    }
+
+    public void setCreater(Creater creater) {
+        this.creater = creater;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

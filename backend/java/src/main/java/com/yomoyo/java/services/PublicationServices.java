@@ -26,7 +26,7 @@ private final PublicationRepository publicationRepository;
         {
             return entity;
         }
-        Publication publication= publicationRepository.findByIdPublication(idpublication);
+        Publication publication= publicationRepository.findByIdpublication(idpublication);
         entity = (publication == null) ? (new ResponseEntity<Object>(HttpStatus.BAD_REQUEST)) : (new ResponseEntity<Object>(HttpStatus.OK));
         if(entity.getStatusCode() != HttpStatus.OK)
         {

@@ -67,6 +67,7 @@ export default {
     addUser() {
       axios.post("http://localhost:8090/users/new",{name : this.name, surname : this.surname ,login : this.login,password : this.password}).then(response => {
         console.log(response)
+        localStorage.setItem('user',JSON.stringify(response.data))
         axios.get("http://localhost:8090/users/all").then(response => {
           console.log(response)
           this.users = response.data

@@ -1,27 +1,30 @@
 <template>
-  <div class="form">
+<!--  <div class="form">
     <div class="form-users">
         <li v-bind:key="user.iduser" v-for="user in users">
       <input type="checkbox" :value="user" v-model="selected"><h5> {{ user.name }} {{ user.surname }}</h5><button v-on:click="deletebyiduser(user.iduser)">Удалить</button>
        </li>
     </div>
-
-      <div class="form-registration">
-        <h2>Регистрация пользователя</h2>
-    {{name}}
-    <label>Имя</label>
-    <input v-model="name">
-    {{surname}}
-    <label>Фамилия</label>
-    <input v-model="surname">
-    {{login}}
-    <label>Логин</label>
-    <input v-model="login">
-    {{password}}
-    <label>Пароль</label>
-    <input v-model="password">
-    <button v-on:click="addUser()">Добавить</button>
-      </div>
+  </div>-->
+  <div><v-card v-bind:key="user.iduser" v-for="user in users"
+      class="mx-auto"
+      max-width="100%"
+      tile
+  >
+    <v-list-item>
+      <v-list-item-content>
+        <v-list-item-title>{{ user.name }} {{ user.surname }}
+          <v-btn
+            :loading="loading"
+            class="ma-1"
+            color="error"
+            plain
+            @click="remove"
+            v-on:click="deletebyiduser(user.iduser)">Удалить
+        </v-btn></v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+  </v-card>
   </div>
 </template>
 
@@ -37,6 +40,7 @@ export default {
       surname:'',
       login : '',
       password : ''
+
     }
   },
   name:"main",
@@ -74,6 +78,13 @@ export default {
         })}
       )
     },
+    async remove () {
+      this.loading = true
+
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      this.loading = false
+    },
   },
   mounted() {
     axios.get("http://localhost:8090/users/all").then(response => {
@@ -89,7 +100,7 @@ export default {
 <style scoped>
 template{
 
-}
+/*}
 h3 {
   margin: 40px 0 0;
 }
@@ -157,5 +168,11 @@ h5{
 h2{
   font-size: 10px;
   margin: 5px;
+}*/
+
+}
+button {
+
+
 }
 </style>

@@ -1,40 +1,6 @@
 <template>
-  <div class="form">
-    <div class="form-users">
-<!--    <li v-bind:key="publication.idpublication" v-for="publication in publications">-->
-<!--      <input type="checkbox" :value="publication" v-model="selected"><h5>{{ publication.heading }} {{ publication.text }} {{ publication.image }}</h5><button v-on:click="deletebyidpublication(publication.idpublication)">Удалить</button>-->
-      <v-card v-bind:key="publication.idpublication" v-for="publication in publications"
-          class="mx-auto"
-          max-width="344"
-          outlined
-      >
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="text-overline mb-4">
-              {{ publication.heading }}
-            </div>
-            <v-list-item-subtitle>{{ publication.text }}</v-list-item-subtitle>
-          </v-list-item-content>
+<!--  <div class="form">
 
-          <v-list-item-avatar
-              tile
-              size="80"
-              color="grey"
-          ></v-list-item-avatar>
-        </v-list-item>
-
-        <v-card-actions>
-          <v-btn
-              outlined
-              rounded
-              text
-          >
-            Button
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-<!--    </li>-->
-    </div>
     <div class="form-validation">
       <h2>Создать пост</h2>
     {{heading}}
@@ -48,24 +14,84 @@
     <input v-model="image">
     <button v-on:click="addPublication()">Опубликовать</button>
   </div>
-  </div>
+  </div>-->
+  <v-form
+
+      ref="form"
+      v-model="valid"
+      lazy-validation
+  >
+    <v-text-field
+        v-model="heading"
+        :counter="10"
+        :rules="headingRules"
+        label="heading"
+        required
+    ></v-text-field>
+
+    <v-text-field
+        v-model="text"
+        :rules="textRules"
+        label="text"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="image"
+        :rules="imageRules"
+        label="image"
+        required
+    ></v-text-field>
+    <v-btn
+        :disabled="!valid"
+        color="success"
+        class="mr-4"
+        @click="validate"
+        v-on:click="addPublication()"
+    >
+      Validate
+    </v-btn>
+
+    <v-btn
+        color="error"
+        class="mr-4"
+        @click="reset"
+    >
+      Reset Form
+    </v-btn>
+
+    <v-btn
+        color="warning"
+        @click="resetValidation"
+    >
+      Reset Validation
+    </v-btn>
+  </v-form>
 </template>
 
 <script>
 import axios from "axios";
 
 export default {
-  data() {
-    return {
-      publications :[],
-      selected: [],
-      heading : '',
-      text:'',
-      image : ''
-    }
-  },
+  data: () => ({
+    valid: true,
+    text: '',
+    textRules: [
+      v => !!v || 'text is required',
+      v => (v && v.length > 10) || 'text must be more than 10 characters',
+    ],
+    checkbox: false,
+  }),
   name:"Publication",
-  methods : {
+  methods: {
+    validate () {
+      this.$refs.form.validate()
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
+    resetValidation () {
+      this.$refs.form.resetValidation()
+    },
     deletebyidpublication(id) {
       axios.delete("http://localhost:8090/Publications/deletebyid?idpublication=" + id, {
         headers: {

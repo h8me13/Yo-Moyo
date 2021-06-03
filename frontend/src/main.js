@@ -2,9 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from "vue-router";
 import Publication from "./components/Publication";
-import HelloWorld from "./components/HelloWorld";
+import HelloWorld from "./components/UsersList";
 import vuetify from '@/plugins/vuetify'
 import Registration from "./components/Registration";
+import PublicationsList from "./components/PublicationsList";
 
 
 
@@ -21,6 +22,10 @@ const routes = [
   {
     path:'/register',
     component: Registration
+  },
+  {
+    path:'/PublicationList',
+    component: PublicationsList
   }
 ];
 

@@ -17,12 +17,16 @@ public class SubController {
         this.subServices = subServices;
     }
     @GetMapping(path= "all")
+    @CrossOrigin("http://localhost:8080")
     public List<Sub> findSubs(){ return subServices.findAllSubs();}
     @PostMapping(path="new")
+    @CrossOrigin("http://localhost:8080")
     public void addNewSub(@RequestBody Sub sub){ subServices.saveSub(sub);}
     @PutMapping(path="update")
+    @CrossOrigin("http://localhost:8080")
     public void updateSub(@RequestBody Sub sub){
         subServices.updateSub(sub.getIdsub());}
     @DeleteMapping(path = "deletebyid")
+    @CrossOrigin("http://localhost:8080")
     public void deleteCategory(@RequestParam Long idsub){ subServices.deleteSub(idsub);}
 }
